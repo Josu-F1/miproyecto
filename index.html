@@ -1,12 +1,449 @@
-//crear una paguina web con un formulario que contenga los siguientes campos:
-//nombre, apellido, edad, correo electronico, telefono, direccion y un boton de enviar
-<!DOCTYPE html> 
-<html lang="es">    
-fgfgfg
-dfsdfsdfsdfsdfsdfs
-<h1>Se modifico un poco </h1>
-</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Creativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b6b;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Floating Elements */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 50%;
+            right: 10%;
+            width: 120px;
+            height: 120px;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 4s;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Colores anteriores 
+:root {
+  --primary-color: #0057a5;
+}
+
+Cambios aplicados 
+:root {
+  --primary-color: #004080; /* Cambio PJ-4 
+  --accent-color: #fdb913;
+  --font-family: 'Poppins', sans-serif;
+}
+
+*/
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">CreativeStudio</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#login">login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Diseño que Inspira</h1>
+            <h2>Bienvenido al sistema</h2>
+            <p>Creamos experiencias digitales extraordinarias que conectan con tu audiencia</p>
+            <a href="#servicios" class="cta-button">Descubre Más</a>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="container">
+            <h2 class="section-title fade-in">Nuestros Servicios</h2>
+            <div class="cards-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">🎨</div>
+                    <h3>Diseño Web</h3>
+                    <p>Creamos sitios web modernos y responsive que destacan en la multitud y ofrecen experiencias excepcionales.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">📱</div>
+                    <h3>Apps Móviles</h3>
+                    <p>Desarrollamos aplicaciones móviles intuitivas que conectan con usuarios en cualquier dispositivo.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">🚀</div>
+                    <h3>Branding</h3>
+                    <p>Construimos identidades de marca sólidas que comunican valores y generan conexiones emocionales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in">Portfolio</h2>
+            <div class="cards-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">💼</div>
+                    <h3>Proyecto Alpha</h3>
+                    <p>Una plataforma e-commerce revolucionaria que transformó la experiencia de compra online para miles de usuarios.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">🌟</div>
+                    <h3>Brand Revolution</h3>
+                    <p>Rediseño completo de identidad corporativa que aumentó el reconocimiento de marca en un 300%.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">🎯</div>
+                    <h3>App Innovation</h3>
+                    <p>Aplicación móvil que alcanzó 100k descargas en su primer mes, redefiniendo la interacción usuario-marca.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="container">
+            <h3>¿Listo para crear algo increíble?</h3>
+            <p>Contacta con nosotros y hagamos realidad tu visión</p>
+            <p>© 2023 CreativeStudio. Todos los derechos reservados.</p>
+            //icono de whatsapp
+            <a href="https://wa.me/1234567890" class="cta-button" style="margin-top: 1rem; display: inline-block;">WhatsApp</a>
+
+            <a href="mailto:hello@creativestudio.com" class="cta-button" style="margin-top: 1rem; display: inline-block;">Contáctanos</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Parallax effect for floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>
 
 
 
